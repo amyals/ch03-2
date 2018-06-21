@@ -1,6 +1,10 @@
 {% extends 'blog/base.html' %}
 
 {% block content %}
+<SCRIPT language="JavaScript">
+  var point;
+  point = 500;
+</SCRIPT>
   {% for post in posts %}
     <div class="post">
       <div class="date">
@@ -8,9 +12,22 @@
       </div>
       <h1><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h1>
       <!-- <h1><a href="">{{ post.title }}</a></h1> -->
-      <p>{{ post.text|linebreaksbr }}</p>
+      <p>{{ post.point_check.text|linebreaksbr }}</p>
       <a href="{% url 'post_detail' pk=post.pk %}">Comments: {{ post.approved_comments.count }}</a>
       <a href="{% url 'post_detail' pk=post.pk %}">like: {{ post.like_count.count }} </a>
     </div>
+    <SCRIPT language="JavaScript">;
+      point += {{ post.approved_comments.count }}*10;
+      point += {{ post.like_count.count }}*50;
+    </SCRIPT>
+    <!-- <h2> point:
+    <SCRIPT language="JavaScript">
+    docu
+    </SCRIPT> -->
   {% endfor %}
+  <h2>
+    <SCRIPT language="JavaScript">;
+      document.write("Point: " + point)
+    </SCRIPT>
+  </h2>
 {% endblock %}
